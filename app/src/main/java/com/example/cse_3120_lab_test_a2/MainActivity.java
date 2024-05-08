@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TextView milview, petview, colview;
 
     Button drivebtn, colbtn, petbtn, addvhbtn;
+    Double oil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,52 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (vht.getText().toString().equalsIgnoreCase("Motorcycle")){
                     Vehicle test = new Motorcycle();
+                    if(clt.getText().toString().equalsIgnoreCase("Red"))
+                    {
+                        test.color = new Red();
+                        vehicle = test;
+                    }
+                    else if(clt.getText().toString().equalsIgnoreCase("Green"))
+                    {
+                        test.color = new Green();
+                        vehicle = test;
 
+                    }
+                    else if(clt.getText().toString().equalsIgnoreCase("Blue"))
+                    {
+                        test.color = new Blue();
+                        vehicle = test;
+
+                    }
                 }
             }
         });
 
+        drivebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vehicle.drive();
+                milview.setText(String.valueOf(vehicle.rmilage()));
+                petview.setText(String.valueOf(vehicle.rfuel()));
+            }
+        });
 
+        petbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oil = Double.valueOf(pet.getText().toString().trim());
+                vehicle.rpetrol(oil);
+                milview.setText(String.valueOf(vehicle.rmilage()));
+                petview.setText(String.valueOf(vehicle.rfuel()));
+            }
+        });
+
+        colbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colview.setText(String.valueOf(vehicle.color.showcolor()));
+            }
+        });
 
     }
 }
